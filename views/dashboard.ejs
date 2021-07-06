@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bug Tracker Application</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+
+<body class="container-fluid">
+    <h1 class="text-secondary ">Bug Tracker Application</h1>
+    <!--add bugs-->
+    <hr class="border border-5 border-dark">
+    <div class="container border shadow p-3 mb-5 bg-body rounded">
+        <h2>Add New Bug</h2>
+        <hr class="border  border-dark">
+        <form action="/addbug" method="POST" class="row">
+            <div class="form-group col-auto">
+                <label for="title" class="form-label fw-bold">Title</label>
+                <input type="text" name="title" id="title" class="form-control" required>
+            </div>
+            <div class="form-group col-auto">
+                <label for="description" class="form-label fw-bold">Description</label>
+                <input type="text" name="description" id="description" class="form-control" required>
+            </div>
+            <div class="form-group col-auto">
+                <label for="assigne" class="form-label fw-bold">Assigne</label>
+                <input type="text" name="assigne" id="assigne" class="form-control" required>
+            </div><br>
+            <div class="form-group col-auto p-4">
+                <button type="submit" class="btn btn-success">Add Bug</button>
+                <button type="reset" class="btn btn-default">Clear</button>
+            </div>
+
+        </form>
+    </div>
+    <!--all bugs-->
+    <div class="container border  shadow p-3 mb-5 bg-body rounded">
+        <h2>Bugs Details</h2>
+        <hr class="border border-dark">
+        <% if(bugs.length> 0 ) { %>
+            <table class="table table-secondary align-middle">
+                <thead class="fw-bold fs-5">
+                    <tr>
+                        <td>Sl.No</td>
+                        <td>Bug Title</td>
+                        <td>Bug Assigne</td>
+                        <td>Bug Description</td>
+                        <td colspan="2">Bug Status</td>
+                        <td></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% bugs.forEach(bug=> {%>
+                        <tr>
+                            <td>
+                                <%= ++counter %>.
+                            </td>
+                            <td>
+                                <i>
+                                    <%=bug.title %>
+                                </i>
+                            </td>
+                            <td>
+                                <%=bug.assigne %>
+                            </td>
+                            <td>
+                                <%=bug.description %>
+                            </td>
+                            <td colspan=2 class="fw-bold" id="status">
+                                <script>
+                                    function currdate() {
+                                        today = new Date();
+                                        var dd = today.getDate();
+                                        var mm = today.getMonth() + 1;
+                                        var yy = today.getFullYear();
+                                        if (dd < 10) dd = '0' + dd;
+                                        if (mm < 10) mm = '0' + mm;
+                                        return (dd);
+                                    }
+                                    var date = "<%=bug.date %>";
+                                    var day = date.slice(0, 2);
+                                    var currday=currdate();
+                                    if (day + 3 == currday ){
+                                        document.getElementById('status').innerHTML="Resolved";
+                                        document.getElementById('status').style.backgroundColor="green";
+                                    }
+                                    else{
+                                        document.getElementById('status').innerHTML="Active";
+                                        document.getElementById('status').style.backgroundColor="Red";
+                                    }
+                                </script>
+                            </td>
+                            <td>
+                                <a href="#" title="Delete Bug" style="text-decoration: none;">&#128465;</a>
+                            </td>
+                        </tr>
+                        <% }) %>
+                </tbody>
+            </table>
+            <% } else { %>
+                <div class="alert alert-info">No Bugs to display</div>
+                <% } %>
+    </div>
+</body>
+
+</html>
