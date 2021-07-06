@@ -48,6 +48,7 @@
                         <td>Bug Title</td>
                         <td>Bug Assigne</td>
                         <td>Bug Description</td>
+                        <td>Date</td>
                         <td colspan="2">Bug Status</td>
                         <td></td>
                     </tr>
@@ -69,33 +70,17 @@
                             <td>
                                 <%=bug.description %>
                             </td>
-                            <td colspan=2 class="fw-bold" id="status">
-                                <script>
-                                    function currdate() {
-                                        today = new Date();
-                                        var dd = today.getDate();
-                                        var mm = today.getMonth() + 1;
-                                        var yy = today.getFullYear();
-                                        if (dd < 10) dd = '0' + dd;
-                                        if (mm < 10) mm = '0' + mm;
-                                        return (dd);
-                                    }
-                                    var date = "<%=bug.date %>";
-                                    var day = date.slice(0, 2);
-                                    var currday=currdate();
-                                    if (day + 3 == currday ){
-                                        document.getElementById('status').innerHTML="Resolved";
-                                        document.getElementById('status').style.backgroundColor="green";
-                                    }
-                                    else{
-                                        document.getElementById('status').innerHTML="Active";
-                                        document.getElementById('status').style.backgroundColor="Red";
-                                    }
-                                </script>
-                            </td>
                             <td>
-                                <a href="#" title="Delete Bug" style="text-decoration: none;">&#128465;</a>
+                                <%=bug.time.getDate()%>/<%=bug.time.getMonth()%>/<%=bug.time.getFullYear()%>
                             </td>
+                            <% if( bug.time.getDate() + 3==currdate) {%>
+                                <td colspan=2 class="fw-bold bg-success" id="status">Resolved</td>
+                                <% } else { %>
+                                    <td colspan=2 class="fw-bold bg-danger" id="status">Active</td>
+                                    <% } %>
+                                        <td>
+                                            <a href="#" title="Delete Bug" style="text-decoration: none;">&#128465;</a>
+                                        </td>
                         </tr>
                         <% }) %>
                 </tbody>
@@ -107,3 +92,25 @@
 </body>
 
 </html>
+<script>
+    /*function currdate() {
+        today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth() + 1;
+        var yy = today.getFullYear();
+        if (dd < 10) dd = '0' + dd;
+        if (mm < 10) mm = '0' + mm;
+        return (dd);
+    }
+    var date = ;
+    var day = date.slice(0, 2);
+    var currday=currdate();
+    if (day + 3 == currday ){
+        document.getElementById('status').innerHTML="Resolved";
+        document.getElementById('status').style.backgroundColor="green";
+    }
+    else{
+        document.getElementById('status').innerHTML="Active";
+        document.getElementById('status').style.backgroundColor="Red";
+    }*/
+</script>
