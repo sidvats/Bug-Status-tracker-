@@ -1,10 +1,10 @@
 const express = require('express');
 const mongoose = require('mongoose'); 
-const bugroutes=require("./routes/bug.routes");
+// const bugroutes=require("./routes/bug.routes");
 var server = express();
 const port = process.env.PORT | 4200;
 const dburl = "mongodb://127.0.0.1:27017/bugs";
-
+var bugcontroller=require('./controller/bug.controller');
 
 mongoose.connect(dburl, { useUnifiedTopology: true, useNewUrlParser: true })
     .then((result) => {
@@ -20,10 +20,11 @@ mongoose.connect(dburl, { useUnifiedTopology: true, useNewUrlParser: true })
 server.set('view engine','ejs');
 server.use(express.static('public'));
 server.use(express.urlencoded({extended:true}));
-var bugcontroller=require('./controller/bug.controller');
 
-server.get('/',bugcontroller.findbug)
-server.post('/addbug',bugcontroller.addbug)
+
+server.get('/',bugcontroller.findbug);
+server.post('/addbug',bugcontroller.addbug);
+server.delete('/:id',bugcontroller.deletebug);
 //server.use(bugroutes); //server.use('bug',bugroutes); for localhost:4200/bugs/
 server.use((req,res)=>{
     res.status(404).render('404');

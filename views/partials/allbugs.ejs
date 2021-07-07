@@ -10,8 +10,8 @@
                     <td>Bug Assigne</td>
                     <td>Bug Description</td>
                     <td>Date</td>
-                    <td colspan="2">Bug Status</td>
-                    <td></td>
+                    <td >Bug Status</td>
+                    <td>Action</td>
                 </tr>
             </thead>
             <tbody>
@@ -32,15 +32,17 @@
                             <%=bug.description %>
                         </td>
                         <td>
-                            <%=bug.time.getDate()%>/<%=bug.time.getMonth()%>/<%=bug.time.getFullYear()%>
+                             <%=bug.time.getDate()%>/<%=bug.time.getMonth()%>/<%=bug.time.getFullYear()%>
                         </td>
-                        <% if( bug.time.getDate() + 3==currdate) {%>
-                            <td colspan=2 class="fw-bold bg-success" id="status">Resolved</td>
+                        <% if( ((bug.time.getTime())+(3*86400000)) >= currdate) {%>
+                            <td  class="fw-bold bg-success" id="status">Resolved</td>
                             <% } else { %>
-                                <td colspan=2 class="fw-bold bg-danger" id="status">Active</td>
+                                <td  class="fw-bold bg-danger" id="status">Active</td>
                                 <% } %>
                                     <td>
-                                        <a href="#" title="Delete Bug" style="text-decoration: none;">&#128465;</a>
+                                        <a class="delete" title="Delete Bug" style="text-decoration: none;cursor:pointer;" data-id="<%=bug._id %>" >
+                                            <span class="fs-2">&#128465;</span>
+                                        </a>
                                     </td>
                     </tr>
                     <% }) %>
@@ -50,3 +52,19 @@
             <div class="alert alert-info">No Bugs to display</div>
             <% } %>
 </div>
+<script>
+    var a =document.querySelector("a.delete");
+    a.addEventListener('click',(e)=>{
+        const url=`/${a.dataset.id}`;
+        fetch(url,{
+            method: 'DELETE'
+        }).then((response)=>{
+            response.json()  //returns json data next then to handel returned obj
+        }).then((data)=>{
+            console.log("received response =" +data);
+            window.location.href = "/";
+        }).catch((err)=>{
+            if(err) console.log(err);
+        })
+    })
+</script>
