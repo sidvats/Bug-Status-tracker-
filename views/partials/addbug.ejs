@@ -1,0 +1,23 @@
+<div class="container border shadow p-3 mb-5 bg-body rounded">
+    <h2>Add New Bug</h2>
+    <hr class="border  border-dark">
+    <form action="/addbug" method="POST" class="row">
+        <div class="form-group col-auto">
+            <label for="title" class="form-label fw-bold">Title</label>
+            <input type="text" name="title" id="title" class="form-control" required>
+        </div>
+        <div class="form-group col-auto">
+            <label for="description" class="form-label fw-bold">Description</label>
+            <input type="text" name="description" id="description" class="form-control" required>
+        </div>
+        <div class="form-group col-auto">
+            <label for="assigne" class="form-label fw-bold">Assigne</label>
+            <input type="text" name="assigne" id="assigne" class="form-control" required>
+        </div><br>
+        <div class="form-group col-auto p-4">
+            <button type="submit" class="btn btn-success">Add Bug</button>
+            <button type="reset" class="btn btn-default">Clear</button>
+        </div>
+
+    </form>
+</div>

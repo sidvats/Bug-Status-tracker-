@@ -1,0 +1,52 @@
+<div class="container border  shadow p-3 mb-5 bg-body rounded">
+    <h2>Bugs Details</h2>
+    <hr class="border border-dark">
+    <% if(bugs.length> 0 ) { %>
+        <table class="table table-secondary align-middle">
+            <thead class="fw-bold fs-5">
+                <tr>
+                    <td>Sl.No</td>
+                    <td>Bug Title</td>
+                    <td>Bug Assigne</td>
+                    <td>Bug Description</td>
+                    <td>Date</td>
+                    <td colspan="2">Bug Status</td>
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody>
+                <% bugs.forEach(bug=> {%>
+                    <tr>
+                        <td>
+                            <%= ++counter %>.
+                        </td>
+                        <td>
+                            <i>
+                                <%=bug.title %>
+                            </i>
+                        </td>
+                        <td>
+                            <%=bug.assigne %>
+                        </td>
+                        <td>
+                            <%=bug.description %>
+                        </td>
+                        <td>
+                            <%=bug.time.getDate()%>/<%=bug.time.getMonth()%>/<%=bug.time.getFullYear()%>
+                        </td>
+                        <% if( bug.time.getDate() + 3==currdate) {%>
+                            <td colspan=2 class="fw-bold bg-success" id="status">Resolved</td>
+                            <% } else { %>
+                                <td colspan=2 class="fw-bold bg-danger" id="status">Active</td>
+                                <% } %>
+                                    <td>
+                                        <a href="#" title="Delete Bug" style="text-decoration: none;">&#128465;</a>
+                                    </td>
+                    </tr>
+                    <% }) %>
+            </tbody>
+        </table>
+        <% } else { %>
+            <div class="alert alert-info">No Bugs to display</div>
+            <% } %>
+</div>
