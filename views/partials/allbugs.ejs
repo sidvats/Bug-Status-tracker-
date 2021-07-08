@@ -10,7 +10,7 @@
                     <td>Bug Assigne</td>
                     <td>Bug Description</td>
                     <td>Date</td>
-                    <td >Bug Status</td>
+                    <td>Bug Status</td>
                     <td>Action</td>
                 </tr>
             </thead>
@@ -32,15 +32,16 @@
                             <%=bug.description %>
                         </td>
                         <td>
-                             <%=bug.time.getDate()%>/<%=bug.time.getMonth()%>/<%=bug.time.getFullYear()%>
+                            <%=bug.time.getDate()%>/<%=bug.time.getMonth()%>/<%=bug.time.getFullYear()%>
                         </td>
-                        <% if( ((bug.time.getTime())+(3*86400000)) >= currdate) {%>
-                            <td  class="fw-bold bg-success" id="status">Resolved</td>
+                        <% if( ((bug.time.getTime())+(3*86400000)) <= currdate) {%>
+                            <td class="fw-bold bg-success" id="status">Resolved </td>
                             <% } else { %>
-                                <td  class="fw-bold bg-danger" id="status">Active</td>
+                                <td class="fw-bold bg-danger" id="status">Active</td>
                                 <% } %>
                                     <td>
-                                        <a class="delete" title="Delete Bug" style="text-decoration: none;cursor:pointer;" data-id="<%=bug._id %>" >
+                                        <a class="delete" title="Delete Bug"
+                                            style="text-decoration: none;cursor:pointer;" data-id="<%=bug._id %>">
                                             <span class="fs-2">&#128465;</span>
                                         </a>
                                     </td>
@@ -53,18 +54,18 @@
             <% } %>
 </div>
 <script>
-    var a =document.querySelector("a.delete");
-    a.addEventListener('click',(e)=>{
-        const url=`/${a.dataset.id}`;
-        fetch(url,{
+    var a = document.querySelector("a.delete");
+    a.addEventListener('click', (e) => {
+        const url = `/${a.dataset.id}`;
+        fetch(url, {
             method: 'DELETE'
-        }).then((response)=>{
+        }).then((response) => {
             response.json()  //returns json data next then to handel returned obj
-        }).then((data)=>{
-            console.log("received response =" +data);
+        }).then((data) => {
+            console.log("received response =" + data);
             window.location.href = "/";
-        }).catch((err)=>{
-            if(err) console.log(err);
+        }).catch((err) => {
+            if (err) console.log(err);
         })
     })
 </script>
